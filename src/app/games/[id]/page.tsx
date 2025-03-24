@@ -10,8 +10,13 @@ import { ArrowLeft, Calendar, Monitor, Star, Tag, Users } from "lucide-react";
 import GameTrailers from "@/components/GameTrailers";
 import GameScreenshots from "@/components/GameScreenshots";
 
-export default async function GamePage({ params }: { params: { id: string } }) {
-  const gameId = Number.parseInt(params.id);
+export default async function GamePage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const resolvedParams = await params;
+  const gameId = Number.parseInt(resolvedParams.id);
 
   if (isNaN(gameId)) {
     notFound();

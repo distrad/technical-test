@@ -8,7 +8,7 @@ import Link from "next/link";
 export default async function Home({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     search?: string;
     year?: string;
     genres?: string;
@@ -16,15 +16,16 @@ export default async function Home({
     tags?: string;
     developers?: string;
     page?: string;
-  };
+  }>;
 }) {
-  const search = searchParams.search || "";
-  const year = searchParams.year || "";
-  const genres = searchParams.genres || "";
-  const platforms = searchParams.platforms || "";
-  const tags = searchParams.tags || "";
-  const developers = searchParams.developers || "";
-  const page = searchParams.page ? Number.parseInt(searchParams.page) : 1;
+  const params = await searchParams;
+  const search = params.search || "";
+  const year = params.year || "";
+  const genres = params.genres || "";
+  const platforms = params.platforms || "";
+  const tags = params.tags || "";
+  const developers = params.developers || "";
+  const page = params.page ? Number.parseInt(params.page) : 1;
 
   return (
     <main className="container mx-auto px-4 py-8">
